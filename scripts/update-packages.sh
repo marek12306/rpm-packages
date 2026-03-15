@@ -85,7 +85,7 @@ for PKG_DIR in */; do
         git add "${SPEC_FILE}"
         if git diff --staged --quiet; then
             echo "  [-] File ${SPEC_FILE} is already at version ${UPSTREAM_VERSION}. Skipping."
-            git checkout "$DEFAULT_BRANCH"
+            git checkout main
             git branch -D "$BRANCH_NAME"
             continue
         fi
