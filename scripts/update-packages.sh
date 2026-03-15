@@ -60,13 +60,14 @@ for PKG_DIR in */; do
         mkdir -p tmp_src && tar -xzf tmp_source.tar.gz -C tmp_src --strip-components=1
         pushd tmp_src
         cargo vendor
-        VENDOR_TAR="../${PKG_DIR}-${UPSTREAM_VERSION}-vendor.tar.xz"
-        tar -cJf "$VENDOR_TAR" vendor
+        VENDOR_TAR_NAME="${PKG_DIR}-${UPSTREAM_VERSION}-vendor.tar.xz"
+        echo "  [+] Creating vendor archive ${VENDOR_TAR_NAME}..."
+        tar -cJf "../${VENDOR_TAR_NAME}" vendor
         popd
 
         echo "  [+] Uploading vendor archive to GitHub..."
         RELEASE_TAG="vendor-${PKG_DIR}-${UPSTREAM_VERSION}"
-        gh release create "$RELEASE_TAG" "$VENDOR_TAR" \
+        gh release create "$RELEASE_TAG" "${VENDOR_TAR_NAME}"\
             --title "Vendor package for ${PKG_DIR} (v${UPSTREAM_VERSION})" \
             --notes "Automatically generated archive with Rust dependencies"
 
