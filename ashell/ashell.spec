@@ -5,7 +5,7 @@ Summary:        Wayland status bar for Hyprland and Niri
 
 License:        MIT
 URL:            https://malpenzibo.github.io/ashell
-Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
+Source0:        https://github.com/malpenzibo/ashell/archive/refs/tags/%{version}.tar.gz
 Source1:        https://github.com/marek12306/rpm-packages/releases/download/vendor-%{name}-%{version}/%{name}-%{version}-vendor.tar.xz
 
 BuildRequires:  rust >= 1.89
