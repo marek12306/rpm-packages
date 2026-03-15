@@ -15,14 +15,16 @@ BuildRequires:  clang
 BuildRequires:  wayland-protocols-devel
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  wayland-devel
-BuildRequires:  dbus-devel
 BuildRequires:  pipewire-devel
-BuildRequires:  pulseaudio-libs-devel
 
 %if 0%{?suse_version}
 BuildRequires:  cargo-packaging
+BuildRequires:  dbus-1-devel
+BuildRequires:  pulseaudio-libs-devel
 %else
 BuildRequires:  cargo-rpm-macros
+BuildRequires:  dbus-devel
+BuildRequires:  libpulse-devel
 %endif
 
 %description
