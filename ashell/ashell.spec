@@ -1,5 +1,5 @@
 Name:           ashell
-Version:        0.6.9
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Wayland status bar for Hyprland and Niri
 
