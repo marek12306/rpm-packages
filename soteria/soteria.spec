@@ -6,6 +6,7 @@ Summary:        Polkit authentication agent written in GTK
 License:        Apache-2.0
 URL:            https://github.com/imvaskel/soteria
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
+Source1:        https://github.com/marek12306/rpm-packages/releases/download/vendor-%{name}-%{version}/%{name}-%{version}-vendor.tar.xz
 
 BuildRequires:  rust >= 1.85
 BuildRequires:  cargo
@@ -23,14 +24,21 @@ BuildRequires:  cargo-rpm-macros
 Soteria is a Polkit authentication agent written in GTK designed to be used with any desktop environment.
 
 %prep
-%autosetup -p1
-%cargo_prep
+%autosetup -p1 -a1
+%if 0%{?suse_version}
+mkdir -p .cargo
+cat > .cargo/config.toml <<EOF
+[source.crates-io]
+replace-with = "vendored-sources"
 
-%generate_buildrequires
-%cargo_generate_buildrequires -t
+[source.vendored-sources]
+directory = "vendor"
+EOF
+%else
+%cargo_prep -v vendor
+%endif
 
 %build
-cargo fetch --locked
 %cargo_build
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies

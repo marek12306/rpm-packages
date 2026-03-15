@@ -6,6 +6,7 @@ Summary:        Wayland status bar for Hyprland and Niri
 License:        MIT
 URL:            https://malpenzibo.github.io/ashell
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
+Source1:        https://github.com/marek12306/rpm-packages/releases/download/vendor-%{name}-%{version}/%{name}-%{version}-vendor.tar.xz
 
 BuildRequires:  rust >= 1.89
 BuildRequires:  cargo
@@ -28,10 +29,19 @@ BuildRequires:  cargo-rpm-macros
 A ready to go Wayland status bar for Hyprland and Niri.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -a1
+%if 0%{?suse_version}
+mkdir -p .cargo
+cat > .cargo/config.toml <<EOF
+[source.crates-io]
+replace-with = "vendored-sources"
 
-%generate_buildrequires
-%cargo_generate_buildrequires -t
+[source.vendored-sources]
+directory = "vendor"
+EOF
+%else
+%cargo_prep -v vendor
+%endif
 
 %build
 cargo fetch --locked
