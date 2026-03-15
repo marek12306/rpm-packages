@@ -52,7 +52,7 @@ for PKG_DIR in */; do
 	# Download latest release notes
 	RELEASE_NOTES=$(curl -s "https://api.github.com/repos/${UPSTREAM_REPO}/releases/latest" | jq -r .body | tr -d '\r')
 	COMMIT_MSG_FILE="/tmp/commit_msg_${PKG_DIR}.txt"
-	echo "Update ${PKG_DIR} to version ${UPSTREAM_VERSION}" > "$COMMIT_MSG_FILE"
+	echo "${PKG_DIR}: Update to version ${UPSTREAM_VERSION}" > "$COMMIT_MSG_FILE"
         echo "" >> "$COMMIT_MSG_FILE" 
 
 	if [ "$RELEASE_NOTES" != "null" ] && [ -n "$RELEASE_NOTES" ]; then
