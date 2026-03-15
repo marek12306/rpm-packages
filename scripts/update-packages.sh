@@ -56,7 +56,7 @@ for PKG_DIR in */; do
 
         echo "  [+] Vendoring dependencies..."
 
-        curl -sL "https://github.com/${UPSTREAM_REPO}/archive/refs/tags/v${UPSTREAM_VERSION}.tar.gz" -o tmp_source.tar.gz
+        curl -sLf "https://github.com/${UPSTREAM_REPO}/archive/refs/tags/${LATEST_TAG}.tar.gz" -o tmp_source.tar.gz
         mkdir -p tmp_src && tar -xzf tmp_source.tar.gz -C tmp_src --strip-components=1
         pushd tmp_src
         cargo vendor
