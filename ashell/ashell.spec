@@ -40,8 +40,12 @@ EOF
 %build
 cargo fetch --locked
 %cargo_build
+
+%if 0%{?fedora} || 0%{?rhel}
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
+%endif
+
 
 %install
 rm -rf %{buildroot}
@@ -58,4 +62,9 @@ fi
 %{_bindir}/ashell
 
 %changelog
+%if 0%{?fedora} || 0%{?rhel}
 %autochangelog
+%else
+* %(LC_ALL=C date +"%a %b %d %Y") marek12306 <marek12306@gmail.com> - %{version}-%{release}
+- Automated build for version %{version}
+%endif
