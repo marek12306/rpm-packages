@@ -30,6 +30,12 @@ for PKG_DIR in */; do
     echo "  Current version: ${CURRENT_VERSION} -> New version ${UPSTREAM_VERSION}"
 
     if [ "$UPSTREAM_VERSION" != "$CURRENT_VERSION" ]; then
+	OLD_PRS=$(gh pr list --search "head:update-${PKG_DIR}- is:open" --json number --jq '.[].number')
+	for PR_NUM in $OLD_PRS; do
+            echo "  [!] Found old PR #$PR_NUM dla ${PKG_DIR}, closing..."
+            gh pr close "$PR_NUM" -d
+        done
+	
 	BRANCH_NAME="update-${PKG_DIR}-${UPSTREAM_VERSION}"
 
 	if git ls-remote --heads origin "$BRANCH_NAME" | grep -q "$BRANCH_NAME"; then
