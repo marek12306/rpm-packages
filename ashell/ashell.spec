@@ -28,7 +28,7 @@ BuildRequires:  cargo-rpm-macros
 A ready to go Wayland status bar for Hyprland and Niri.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1
 
 %generate_buildrequires
 %cargo_generate_buildrequires -t

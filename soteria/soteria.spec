@@ -23,7 +23,7 @@ BuildRequires:  cargo-rpm-macros
 Soteria is a Polkit authentication agent written in GTK designed to be used with any desktop environment.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1
 %cargo_prep
 
 %generate_buildrequires
