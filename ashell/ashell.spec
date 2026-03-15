@@ -51,9 +51,9 @@ cargo fetch --locked
 %install
 rm -rf %{buildroot}
 if [ -f target/rpm/ashell ]; then
-    install -p -m 0755 target/rpm/ashell %{buildroot}%{_bindir}/ashell
+    install -D -p -m 0755 target/rpm/ashell %{buildroot}%{_bindir}/ashell
 elif [ -f target/release/ashell ]; then
-    install -p -m 0755 target/release/ashell %{buildroot}%{_bindir}/ashell
+    install -D -p -m 0755 target/release/ashell %{buildroot}%{_bindir}/ashell
 else
     echo "Error: Built binary not found"
     exit 1
