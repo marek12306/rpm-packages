@@ -59,11 +59,11 @@ for PKG_DIR in */; do
         curl -sLf "https://github.com/${UPSTREAM_REPO}/archive/refs/tags/${LATEST_TAG}.tar.gz" -o tmp_source.tar.gz
         mkdir -p tmp_src && tar -xzf tmp_source.tar.gz -C tmp_src --strip-components=1
         pushd tmp_src
-        mkdir .cargo
-        cargo vendor > .cargo/config.toml
+        mkdir -p .cargo
+        cargo vendor >> .cargo/config.toml
         VENDOR_TAR_NAME="${PKG_DIR}-${UPSTREAM_VERSION}-vendor.tar.xz"
         echo "  [+] Creating vendor archive ${VENDOR_TAR_NAME}..."
-        tar -cJf "../${VENDOR_TAR_NAME}" vendor
+        tar -cJf "../${VENDOR_TAR_NAME}" vendor .cargo
         popd
 
         echo "  [+] Uploading vendor archive to GitHub..."
@@ -73,7 +73,7 @@ for PKG_DIR in */; do
             --notes "Automatically generated archive with Rust dependencies"
 
         # Cleanup
-        rm -rf tmp_src tmp_source.tar.gz "$VENDOR_TAR"
+        rm -rf tmp_src tmp_source.tar.gz "${VENDOR_TAR_NAME}"
 
         echo "  [+] Updating ${SPEC_FILE}..."
         git checkout -b "$BRANCH_NAME"
