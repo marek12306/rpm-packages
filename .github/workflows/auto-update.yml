@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: '0 2 * * *'
   workflow_dispatch:
+    inputs:
+      force_update:
+        description: 'Force update even if the version has not changed'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   update-specs:
@@ -26,4 +32,5 @@ jobs:
       - name: Run update script
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          FORCE_UPDATE: ${{ github.event.inputs.force_update }}
         run: ./scripts/update-packages.sh
