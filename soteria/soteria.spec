@@ -25,6 +25,11 @@ Soteria is a Polkit authentication agent written in GTK designed to be used with
 
 %prep
 %autosetup -p1 -a1
+cat >> Cargo.toml << EOF
+
+[profile.rpm]
+inherits = "release"
+EOF
 
 %build
 %cargo_build

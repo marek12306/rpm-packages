@@ -30,6 +30,11 @@ A ready to go Wayland status bar for Hyprland and Niri.
 
 %prep
 %autosetup -p1 -a1
+cat >> Cargo.toml << EOF
+
+[profile.rpm]
+inherits = "release"
+EOF
 
 %build
 cargo fetch --locked
