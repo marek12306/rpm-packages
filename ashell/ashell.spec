@@ -21,6 +21,7 @@ BuildRequires:  pipewire-devel
 BuildRequires:  cargo-packaging
 BuildRequires:  dbus-1-devel
 BuildRequires:  libpulse-devel
+BuildRequires:  systemd-devel
 %else
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  dbus-devel
