@@ -30,18 +30,6 @@ A ready to go Wayland status bar for Hyprland and Niri.
 
 %prep
 %autosetup -p1 -a1
-%if 0%{?suse_version}
-mkdir -p .cargo
-cat > .cargo/config.toml <<EOF
-[source.crates-io]
-replace-with = "vendored-sources"
-
-[source.vendored-sources]
-directory = "vendor"
-EOF
-%else
-%cargo_prep -v vendor
-%endif
 
 %build
 cargo fetch --locked

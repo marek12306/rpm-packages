@@ -59,7 +59,7 @@ for PKG_DIR in */; do
         curl -sLf "https://github.com/${UPSTREAM_REPO}/archive/refs/tags/${LATEST_TAG}.tar.gz" -o tmp_source.tar.gz
         mkdir -p tmp_src && tar -xzf tmp_source.tar.gz -C tmp_src --strip-components=1
         pushd tmp_src
-        cargo vendor
+        cargo vendor > .cargo/config.toml
         VENDOR_TAR_NAME="${PKG_DIR}-${UPSTREAM_VERSION}-vendor.tar.xz"
         echo "  [+] Creating vendor archive ${VENDOR_TAR_NAME}..."
         tar -cJf "../${VENDOR_TAR_NAME}" vendor
