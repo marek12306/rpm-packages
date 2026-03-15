@@ -20,11 +20,11 @@ BuildRequires:  pipewire-devel
 %if 0%{?suse_version}
 BuildRequires:  cargo-packaging
 BuildRequires:  dbus-1-devel
-BuildRequires:  pulseaudio-libs-devel
+BuildRequires:  libpulse-devel
 %else
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  dbus-devel
-BuildRequires:  libpulse-devel
+BuildRequires:  pulseaudio-libs-devel
 %endif
 
 %description
