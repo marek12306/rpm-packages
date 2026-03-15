@@ -30,9 +30,14 @@ A ready to go Wayland status bar for Hyprland and Niri.
 %prep
 %autosetup -n %{name}-%{version}
 
+%generate_buildrequires
+%cargo_generate_buildrequires -t
+
 %build
 cargo fetch --locked
 %cargo_build
+%{cargo_license_summary}
+%{cargo_license} > LICENSE.dependencies
 
 %install
 rm -rf %{buildroot}
@@ -40,6 +45,7 @@ rm -rf %{buildroot}
 
 %files
 %license LICENSE
+%license LICENSE.dependencies
 %doc README.md
 %{_bindir}/ashell
 
