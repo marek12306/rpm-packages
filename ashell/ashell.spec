@@ -46,13 +46,15 @@ cargo fetch --locked
 %{cargo_license} > LICENSE.dependencies
 %endif
 
-
 %install
 rm -rf %{buildroot}
-%cargo_install
-if [ -d .cargo/bin ]; then
-    mkdir -p %{buildroot}%{_bindir}
-    install -p -m 0755 .cargo/bin/* -t %{buildroot}%{_bindir}/
+if [ -f target/rpm/ashell ]; then
+    install -p -m 0755 target/rpm/ashell %{buildroot}%{_bindir}/ashell
+elif [ -f target/release/ashell ]; then
+    install -p -m 0755 target/release/ashell %{buildroot}%{_bindir}/ashell
+else
+    echo "Error: Built binary not found"
+    exit 1
 fi
 
 %files
