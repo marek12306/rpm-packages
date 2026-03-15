@@ -82,6 +82,14 @@ for PKG_DIR in */; do
         sed -i "s/^Version:.*/Version:        ${UPSTREAM_VERSION}/i" "${SPEC_FILE}"
 
         # Download latest release notes
+        git add "${SPEC_FILE}"
+        if git diff --staged --quiet; then
+            echo "  [-] File ${SPEC_FILE} is already at version ${UPSTREAM_VERSION}. Skipping."
+            git checkout "$DEFAULT_BRANCH"
+            git branch -D "$BRANCH_NAME"
+            continue
+        fi
+
         RELEASE_NOTES=$(curl -s "https://api.github.com/repos/${UPSTREAM_REPO}/releases/latest" | jq -r .body | tr -d '\r')
         COMMIT_MSG_FILE="/tmp/commit_msg_${PKG_DIR}.txt"
         echo "${PKG_DIR}: Update to version ${UPSTREAM_VERSION}" > "$COMMIT_MSG_FILE"
@@ -93,8 +101,6 @@ for PKG_DIR in */; do
         else
             echo "- Auto update to upstream version ${UPSTREAM_VERSION}" >> "$COMMIT_MSG_FILE"
         fi
-        
-        git add "${SPEC_FILE}"
         git commit -F "$COMMIT_MSG_FILE"
         git push origin "$BRANCH_NAME"
 
