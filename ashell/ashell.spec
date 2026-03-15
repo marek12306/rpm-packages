@@ -59,7 +59,9 @@ fi
 
 %files
 %license LICENSE
+%if 0%{?fedora} || 0%{?rhel}
 %license LICENSE.dependencies
+%endif
 %doc README.md
 %{_bindir}/ashell
 
