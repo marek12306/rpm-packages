@@ -18,6 +18,12 @@ BuildRequires:  dbus-devel
 BuildRequires:  pipewire-devel
 BuildRequires:  pulseaudio-libs-devel
 
+%if 0%{?suse_version}
+BuildRequires:  cargo-packaging
+%else
+BuildRequires:  cargo-rpm-macros
+%endif
+
 %description
 A ready to go Wayland status bar for Hyprland and Niri.
 
@@ -25,11 +31,12 @@ A ready to go Wayland status bar for Hyprland and Niri.
 %autosetup -n %{name}-%{version}
 
 %build
-cargo build --release --locked
+cargo fetch --locked
+%cargo_build
 
 %install
 rm -rf %{buildroot}
-install -D -m 0755 target/release/ashell %{buildroot}%{_bindir}/ashell
+%cargo_install
 
 %files
 %license LICENSE

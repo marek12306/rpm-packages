@@ -13,6 +13,12 @@ BuildRequires:  gtk4-devel
 BuildRequires:  polkit-devel
 BuildRequires:  gettext
 
+%if 0%{?suse_version}
+BuildRequires:  cargo-packaging
+%else
+BuildRequires:  cargo-rpm-macros
+%endif
+
 %description
 Soteria is a Polkit authentication agent written in GTK designed to be used with any desktop environment.
 
@@ -20,7 +26,8 @@ Soteria is a Polkit authentication agent written in GTK designed to be used with
 %autosetup -n %{name}-%{version}
 
 %build
-cargo build --release --locked
+cargo fetch --locked
+%cargo_build
 
 # Building translation files
 for file in po/*.po; do
@@ -31,7 +38,7 @@ done
 %install
 rm -rf %{buildroot}
 
-install -D -m 0755 target/release/soteria %{buildroot}%{_bindir}/soteria
+%cargo_install
 
 # Install translation files
 for file in po/*.po; do
