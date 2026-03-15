@@ -5,7 +5,7 @@ Summary:        Polkit authentication agent written in GTK
 
 License:        Apache-2.0
 URL:            https://github.com/imvaskel/soteria
-Source0:        https://github.com/imvaskel/soteria/archive/refs/tags/v%{version}.tar.gz
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
 
 BuildRequires:  rust >= 1.85
 BuildRequires:  cargo
