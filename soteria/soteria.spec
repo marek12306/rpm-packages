@@ -33,8 +33,8 @@ inherits = "release"
 EOF
 
 %build
-export CARGO_INSTALL_ROOT=%{buildroot}%{_prefix}
 %cargo_build
+
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
@@ -46,8 +46,11 @@ done
 
 %install
 rm -rf %{buildroot}
-
 %cargo_install
+if [ -d .cargo/bin ]; then
+    mkdir -p %{buildroot}%{_bindir}
+    install -p -m 0755 .cargo/bin/* -t %{buildroot}%{_bindir}/
+fi
 
 # Install translation files
 for file in po/*.po; do

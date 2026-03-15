@@ -45,8 +45,11 @@ cargo fetch --locked
 
 %install
 rm -rf %{buildroot}
-export CARGO_INSTALL_ROOT=%{buildroot}%{_prefix}
 %cargo_install
+if [ -d .cargo/bin ]; then
+    mkdir -p %{buildroot}%{_bindir}
+    install -p -m 0755 .cargo/bin/* -t %{buildroot}%{_bindir}/
+fi
 
 %files
 %license LICENSE
