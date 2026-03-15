@@ -45,6 +45,7 @@ cargo fetch --locked
 
 %install
 rm -rf %{buildroot}
+export CARGO_INSTALL_ROOT=%{buildroot}%{_prefix}
 %cargo_install
 
 %files

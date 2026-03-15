@@ -33,6 +33,7 @@ inherits = "release"
 EOF
 
 %build
+export CARGO_INSTALL_ROOT=%{buildroot}%{_prefix}
 %cargo_build
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
