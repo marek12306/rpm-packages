@@ -1,5 +1,5 @@
 Name:           soteria
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Polkit authentication agent written in GTK
 
