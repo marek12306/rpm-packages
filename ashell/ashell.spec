@@ -1,9 +1,9 @@
 Name:           ashell
-Version:        0.8.0
+Version:        0.9.0
 Release:        2%{?dist}
 Summary:        Wayland status bar for Hyprland and Niri
 
-License:        MIT
+License:        GPL-3.0-or-later
 URL:            https://malpenzibo.github.io/ashell
 Source0:        https://github.com/malpenzibo/ashell/archive/refs/tags/%{version}.tar.gz
 Source1:        https://github.com/marek12306/rpm-packages/releases/download/vendor-%{name}-%{version}/%{name}-%{version}-vendor.tar.xz
